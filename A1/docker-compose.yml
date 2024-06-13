@@ -1,0 +1,24 @@
+services:
+  communicator:
+    image: samshad/communicator
+    ports:
+      - "6000:6000"
+    depends_on:
+      - file-processor
+    volumes:
+      - .:/data
+    networks:
+      - microservice-network
+
+  file-processor:
+    image: samshad/file-processor
+    ports:
+      - "7000:7000"
+    volumes:
+      - .:/data
+    networks:
+      - microservice-network
+
+networks:
+  microservice-network:
+    driver: bridge

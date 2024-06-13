@@ -1,0 +1,22 @@
+services:
+  communicator:
+    build: ./communicator_service
+    ports:
+      - "6000:6000"
+    volumes:
+      - .:/data
+    networks:
+      - microservice-network
+
+  file-processor:
+    build: ./file_processor_service
+    ports:
+      - "7000:7000"
+    volumes:
+      - .:/data
+    networks:
+      - microservice-network
+
+networks:
+  microservice-network:
+    driver: bridge
