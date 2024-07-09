@@ -135,5 +135,6 @@ Response:
 ├── Dockerfile
 ├── app.py
 ├── db.py
+├── requirements.txt
 └── .env
 ```
