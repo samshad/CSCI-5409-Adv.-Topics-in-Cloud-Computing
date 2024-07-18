@@ -3,7 +3,7 @@ from flask import Flask, request
 
 app = Flask(__name__)
 
-FOLDER_NAME = "/MdSamshad_PV_dir"
+FOLDER_NAME = "/"
 
 
 @app.route("/sum", methods=["POST"])
@@ -19,7 +19,7 @@ def sum_products():
         dict: Response containing the file path and the calculated sum, or an error message.
     """
     sum_total = 0
-    file_path = FOLDER_NAME + "/" + request.json["file"]
+    file_path = FOLDER_NAME + request.json["file"]
     product_name = request.json["product"]
 
     with open(file_path) as csvfile:

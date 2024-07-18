@@ -5,7 +5,7 @@ from flask import Flask, request
 
 app = Flask(__name__)
 
-FOLDER_NAME = "/MdSamshad_PV_dir"
+FOLDER_NAME = "/"
 
 
 @app.route("/calculate", methods=["POST"])
@@ -30,16 +30,17 @@ def calculate():
             "error": "Invalid JSON input."
         }
 
-    file_path = FOLDER_NAME + "/" + request.json["file"]
+    file_path = FOLDER_NAME + request.json["file"]
     if not os.path.isfile(file_path):
         return {
             "file": file_path,
             "error": "File not found."
         }
 
-    sum_url = ""
+    sum_url = "http://k8s-c2-dep2-service.default.svc.cluster.local/sum"
     response = requests.post(url=sum_url, json=request.json, headers={'Content-Type': 'application/json'})
-    return response.json()
+    print(response)
+    return response
 
 
 @app.route("/store-file", methods=["POST"])
@@ -66,7 +67,7 @@ def store_file():
             "error": "Invalid JSON input."
         }
 
-    file_path = FOLDER_NAME + "/" + request.json["file"]
+    file_path = FOLDER_NAME + request.json["file"]
     try:
         with open(file_path, "w+") as csvfile:
             csvfile.write(request.json["data"].replace(" ", ""))
